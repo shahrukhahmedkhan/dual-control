@@ -1,0 +1,17 @@
+# SwiftPM
+.build/
+.swiftpm/
+/Packages/
+
+# Xcode
+DerivedData/
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+
+# macOS
+.DS_Store
+
+# Local, never committed
+*.local.*
+.env

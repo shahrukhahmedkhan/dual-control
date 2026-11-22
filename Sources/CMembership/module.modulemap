@@ -1,0 +1,4 @@
+module CMembership [system] {
+    header "shim.h"
+    export *
+}
