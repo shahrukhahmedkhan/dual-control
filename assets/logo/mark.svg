@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="72 36 186 148" width="186" height="148" role="img" aria-labelledby="t">
+<title id="t">Dual Control</title>
+<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M104 46 H82 V174 H104 M170 46 H192 V88 M192 132 V174 H170" stroke-width="10"/>
+  <rect x="118" y="78" width="34" height="64" rx="5" fill="#22C55E" stroke="none"/>
+  <path d="M152 110 H184 L200 94 H224" stroke="#22C55E" stroke-width="7"/>
+  <circle cx="238" cy="94" r="10" stroke="#22C55E" stroke-width="7"/>
+</g>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+<title>Dual Control app icon (16 and 32 px: no solder pad)</title>
+<rect x="100" y="100" width="824" height="824" rx="185" fill="#0B0F0C"/>
+<g transform="translate(512 512) scale(3.6) translate(-152.25 -110)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M104 46 H82 V174 H104 M170 46 H192 V88 M192 132 V174 H170" stroke="#E8ECE9" stroke-width="10"/>
+  <rect x="118" y="78" width="34" height="64" rx="5" fill="#22C55E"/>
+  <path d="M152 110 H184 L200 94 H224" stroke="#22C55E" stroke-width="7"/>
+</g>
+</svg>
