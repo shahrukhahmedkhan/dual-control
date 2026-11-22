@@ -19,7 +19,7 @@ let package = Package(
         // Used only in Sources/DualControlShim/MCPServer.swift, so the SDK can be swapped.
         .package(url: "https://github.com/modelcontextprotocol/swift-sdk.git", exact: "0.12.1"),
         // The terminal view. The same exact version as the app's reference in App/DualControl.xcodeproj.
-        .package(url: "https://github.com/migueldeicaza/SwiftTerm.git", exact: "1.10.1"),
+        .package(url: "https://github.com/migueldeicaza/SwiftTerm.git", exact: "1.99.3"),
     ],
     targets: [
         // Pure logic, no I/O. Must build and test on Linux.

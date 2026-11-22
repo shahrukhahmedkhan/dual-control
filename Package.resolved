@@ -1,5 +1,5 @@
 {
-  "originHash" : "cbd7954f5c6b863d1774f292ce067cb688b232a86a301cc511fb5ca1bb8f37d5",
+  "originHash" : "3a9f17204e7d4d3d37f21ea6b8ebc79c6b250c658d0514756f7c4d2c67473ad3",
   "pins" : [
     {
       "identity" : "eventsource",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "bb4b61273b5a976bb571859c17f903ebc3439df1",
         "version" : "1.6.0"
+      }
+    },
+    {
+      "identity" : "h",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rarestype/h",
+      "state" : {
+        "revision" : "aa3626829160917d4378330617971977cbd78f5b",
+        "version" : "1.0.1"
       }
     },
     {
@@ -74,6 +83,15 @@
       }
     },
     {
+      "identity" : "swift-png",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tayloraswift/swift-png",
+      "state" : {
+        "revision" : "2d17c6c51c098628574c0383f1119892655a73a2",
+        "version" : "4.5.2"
+      }
+    },
+    {
       "identity" : "swift-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/modelcontextprotocol/swift-sdk.git",
@@ -96,8 +114,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/migueldeicaza/SwiftTerm.git",
       "state" : {
-        "revision" : "5c83a9d214e7354697624c11deb4e488bdcfabad",
-        "version" : "1.10.1"
+        "revision" : "282c3c3a932b55c129628876b70f37d993af1615",
+        "version" : "1.99.3"
       }
     }
   ],
