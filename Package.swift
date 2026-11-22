@@ -15,7 +15,7 @@ let package = Package(
         .executable(name: "dualcontrol-shim", targets: ["DualControlShim"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-crypto.git", "4.0.0"..<"5.0.0"),
+        .package(url: "https://github.com/apple/swift-crypto.git", "4.0.0"..<"6.0.0"),
         // Used only in Sources/DualControlShim/MCPServer.swift, so the SDK can be swapped.
         .package(url: "https://github.com/modelcontextprotocol/swift-sdk.git", exact: "0.12.1"),
         // The terminal view. The same exact version as the app's reference in App/DualControl.xcodeproj.
