@@ -5,11 +5,23 @@
   </picture>
 </p>
 
+<p align="center">
+  <a href="https://github.com/shahrukhahmedkhan/dual-control/actions/workflows/ci.yml"><img src="https://github.com/shahrukhahmedkhan/dual-control/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI"></a>
+  <a href="https://github.com/shahrukhahmedkhan/dual-control/actions/workflows/app.yml"><img src="https://github.com/shahrukhahmedkhan/dual-control/actions/workflows/app.yml/badge.svg?branch=main" alt="macOS"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="License: Apache-2.0"></a>
+  <img src="https://img.shields.io/badge/platform-macOS%2014%2B-lightgrey" alt="Platform: macOS 14+">
+  <img src="https://img.shields.io/badge/Swift-6.2-orange" alt="Swift 6.2">
+</p>
+
+<p align="center"><img src="assets/demo/dual-control-demo.gif" width="900" alt="Dual Control asking for approval before an edit, a build and a flash, the ESP32 printing its greeting, and sudo being refused"></p>
+
+The demo: the assistant edits a hello-world, builds and flashes it to an ESP32-S3, reads the board's output, then tries `sudo`, which is always refused. Sped up in places; the full video is [here](assets/demo/dual-control-demo.mp4).
+
 # Dual Control
 
 Dual Control is a macOS app that lets an AI assistant (Claude Desktop, or any other MCP client) run commands, work with files and talk to hardware on your Mac, inside limits that macOS enforces.
 
-I built it because I wanted Claude to help with embedded work: build firmware, flash an ESP32, read the serial console, fix the code and try again. Giving an AI a normal shell on my laptop for that felt like a bad idea, so Dual Control gives it a separate account instead.
+Dual Control was built for embedded work: letting Claude build firmware, flash an ESP32, read the serial console, fix the code and try again. Giving an AI a normal shell on your Mac for that is a bad idea, so Dual Control gives it a separate account instead.
 
 ## How it works
 
@@ -66,6 +78,24 @@ The [threat model](docs/THREAT-MODEL.md) explains what this protects against and
 | `serial_close` | Closes a serial port. |
 | `esp_idf_install` | Installs an ESP-IDF release into the protected toolchain folder. |
 
+## Tests
+
+`swift test` runs 718 tests in 8 test targets. Most of them are in `DualControlCoreTests` (465), which covers the pure core: the policy engine, approvals, the audit log, the sandbox profiles and the tool definitions. The other seven targets test the macOS parts: the sandbox (162), the socket between the shim and the app (35), the network proxy and model relay (18), the audit files and settings (16), serial ports (12), the terminal view (7) and the shim end to end (3).
+
+Some tests need things that only a Mac has:
+
+- The sandbox tests start real processes under `sandbox-exec` as your own user, so the kernel enforces the profiles they check.
+- Three shared-terminal tests drive a real tmux. Without tmux they're skipped, except in CI, where a missing tmux makes them fail.
+- Two tests run commands as the real `claude-agent` user. They only run when `DC_REAL_AGENT_ROOT` points at a session folder, and are skipped otherwise.
+- Two tests build Swift packages inside the sandbox. On a CI runner they slow down the timing tests next to them, so CI skips them unless `DC_BUILD_TESTS=1` is set.
+
+The macOS-only targets compile to nothing on Linux, so a Linux `swift test` runs only the 465 core tests.
+
+There are two workflows:
+
+- [CI](.github/workflows/ci.yml), on every push to main and every pull request: swift-format lint and `swift test` in a Linux `swift:6.2` container, and a gitleaks scan of the full history.
+- [macOS](.github/workflows/app.yml), on every push to main and on pull requests that touch the app, the sources or the tests: an unsigned Debug build of the app, and the full `swift test` on macOS 15 with tmux installed.
+
 ## Install
 
 There are no signed builds yet, so you build it from source.
@@ -91,18 +121,18 @@ Then follow [docs/USING.md](docs/USING.md) to create the agent user, pick a sess
 ## Limitations
 
 - macOS only, and one owner per Mac.
-- The sandbox uses Seatbelt profiles through `sandbox-exec`, which Apple has deprecated. It works today, but it's the main reason I want to move to VMs (see below).
+- The sandbox uses Seatbelt profiles through `sandbox-exec`, which Apple has deprecated. It works today, but it's the main reason for the planned move to VMs (see below). [docs/DESIGN.md](docs/DESIGN.md) explains why it was chosen, what happens if it stops working, and how a move to VMs could look.
 - One session folder at a time, under `~/Developer`.
 - Files the assistant writes are normal files. Read them before you run them yourself.
 - The assistant can't discover devices on your network. You have to tell it the address.
-- I use this every day on real hardware, but it's early software and I'm the only one who has used it so far.
+- Early software: used daily on real hardware, with one user so far.
 
 ## Plans
 
 - Let the assistant see what you did during a takeover, if you choose to share it.
 - Device discovery done by the app, so you can pick a device from a list instead of looking up its IP.
 - Support for other agents, not just Claude.
-- A VM per project folder (Virtualization.framework), so the assistant can install and run whole toolchains without touching the host at all.
+- A VM per project folder (Virtualization.framework), so the assistant can install and run whole toolchains without touching the host at all. The tradeoffs are in [docs/DESIGN.md](docs/DESIGN.md).
 
 ## Security
 

@@ -1,8 +1,10 @@
 name: macOS
 
-# macOS minutes are expensive on private repos: only run on PRs that touch the app or the macOS-only code
-# (the IPC and shim tests compile to nothing on Linux, so the Linux job cannot cover them).
+# Runs on every push to main and on PRs that touch the app or the macOS-only code (the IPC, sandbox and shim tests
+# compile to nothing on Linux, so the Linux job cannot cover them).
 on:
+  push:
+    branches: [main]
   pull_request:
     paths:
       - App/**
